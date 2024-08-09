@@ -9,6 +9,7 @@ import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatPaginator } from '@angular/material/paginator';
 import { SharedService } from '../../Services/shared.service';
+import { Events } from '../../../Models/events';
 
 @Component({
   selector: 'app-student-list',
@@ -40,7 +41,7 @@ export class StudentListComponent implements OnInit {
     'mobile',
     'email',
     'nic',
-    'imageURL',
+    'imageUrl',
   ];
   dataSource: any = [];
 
@@ -94,5 +95,12 @@ export class StudentListComponent implements OnInit {
   viewStudentAddingPage(isAdd: any) {
     this.sharedService.setStudent(isAdd);
     this.router.navigate(['/register']);
+  }
+
+  refreshGrid(value: Events): void {
+    if ((value = Events.Delete)) {
+      this.detailsVisible = false;
+    }
+    this.loadStudents();
   }
 }

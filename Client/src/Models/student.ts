@@ -7,5 +7,5 @@ export interface Student {
   nic: string;
   dateOfBirth: Date;
   address: string;
-  imageURL: string;
+  imageUrl: string;
 }

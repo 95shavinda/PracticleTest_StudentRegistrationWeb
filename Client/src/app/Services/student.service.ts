@@ -20,15 +20,15 @@ export class StudentService {
     return this.http.get<Envelope<Student>>(`${this.studentApiUrl}/${id}`);
   }
 
-  register(student: Student): Observable<Envelope<string>> {
-    return this.http.post<Envelope<string>>(`${this.studentApiUrl}`, student);
+  register(student: Student): Observable<any> {
+    return this.http.post<any>(`${this.studentApiUrl}`, student);
   }
 
-  deleteStudent(id: number): Observable<Envelope<string>> {
-    return this.http.delete<Envelope<string>>(`${this.studentApiUrl}/${id}`);
+  deleteStudent(id: number): Observable<any> {
+    return this.http.delete<any>(`${this.studentApiUrl}/${id}`);
   }
 
-  updateStudent(id: number, studentData: any): Observable<Student> {
-    return this.http.put<Student>(`${this.studentApiUrl}/${id}`, studentData);
+  updateStudent(id: number, studentData: Student): Observable<any> {
+    return this.http.put<any>(`${this.studentApiUrl}/${id}`, studentData);
   }
 }

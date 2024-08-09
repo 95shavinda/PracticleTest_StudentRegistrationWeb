@@ -36,8 +36,7 @@ public abstract class StudentBaseValidator<T> : AbstractValidator<T> where T : I
             .MaximumLength(100).WithMessage("Address must not exceed 100 characters.");
 
         RuleFor(x => x.ImageUrl)
-            .NotEmpty().WithMessage("Image URL is required.")
-            .Must(BeAValidUrl).WithMessage("A valid URL is required for the Image.");
+            .NotEmpty().WithMessage("Image URL is required.");
     }
 
     private static bool BeAValidAge(DateOnly dateOfBirth)

@@ -1,11 +1,18 @@
-import { Component, Input, OnInit, inject } from '@angular/core';
+import {
+  Component,
+  Input,
+  OnInit,
+  Output,
+  inject,
+  EventEmitter,
+} from '@angular/core';
 import { Student } from '../../../../Models/student';
 import { CommonModule } from '@angular/common';
 import { StudentService } from '../../../Services/student.service';
 import { Router, RouterLink } from '@angular/router';
-import { SharedService } from '../../../Services/shared.service';
 import { FormsModule } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
+import { Events } from '../../../../Models/events';
 
 @Component({
   selector: 'app-student-details',
@@ -25,12 +32,25 @@ export class StudentDetailsComponent implements OnInit {
   ) {}
 
   isEdit: boolean = false;
+  isDetailsMode: boolean = true;
+
+  @Output() updateEvent = new EventEmitter<Events>();
 
   ngOnInit(): void {}
 
   deleteStudent(id: any): void {
-    this.studentService.deleteStudent(id).subscribe(() => {
-      location.reload();
+    this.studentService.deleteStudent(id).subscribe({
+      next: (res: any) => {
+        this.updateEvent.emit(Events.Delete);
+        this.toastrService.success(res.value, 'Success', {
+          positionClass: 'toast-top-right',
+        });
+      },
+      error: (err: any) => {
+        this.toastrService.error(err.error.errors, 'Error', {
+          positionClass: 'toast-top-right',
+        });
+      },
     });
   }
 
@@ -39,7 +59,7 @@ export class StudentDetailsComponent implements OnInit {
     if (file) {
       const reader = new FileReader();
       reader.onload = (e: any) => {
-        this.studentDetails.imageURL = e.target.result;
+        this.studentDetails.imageUrl = e.target.result;
       };
       reader.readAsDataURL(file);
     }
@@ -53,10 +73,15 @@ export class StudentDetailsComponent implements OnInit {
 
     this.studentService.updateStudent(id, this.studentDetails).subscribe({
       next: (response) => {
-        location.reload();
+        this.updateEvent.emit(Events.Update);
+        this.toastrService.success(response.value, 'Success', {
+          positionClass: 'toast-top-right',
+        });
       },
       error: (err) => {
-        console.error('An error occurred:', err);
+        this.toastrService.error(err.error.errors, 'Error', {
+          positionClass: 'toast-top-right',
+        });
       },
     });
   }

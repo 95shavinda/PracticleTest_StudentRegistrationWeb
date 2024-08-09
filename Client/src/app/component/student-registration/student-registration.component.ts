@@ -37,7 +37,7 @@ export class StudentRegistrationComponent implements OnInit {
     nic: '',
     dateOfBirth: new Date(),
     address: '',
-    imageURL: '',
+    imageUrl: '',
   };
 
   editStudent: any;
@@ -96,18 +96,21 @@ export class StudentRegistrationComponent implements OnInit {
       nic: this.student.nic,
       dateOfBirth: this.student.dateOfBirth,
       address: this.student.address,
-      imageURL: this.imageUrl,
+      imageUrl: this.imageUrl,
     };
 
     this.studentService.register(student).subscribe({
       next: (res: any) => {
         this.router.navigate(['/students']);
-        this.toastrService.success('Student Added Successfully', 'Success', {
+        this.toastrService.success(res.value, 'Success', {
           positionClass: 'toast-top-right',
         });
       },
       error: (err: any) => {
         this.errors = err.error.errors;
+        this.toastrService.error(this.errors, 'Error', {
+          positionClass: 'toast-top-right',
+        });
       },
     });
   }
