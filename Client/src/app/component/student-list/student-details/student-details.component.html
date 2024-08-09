@@ -1,0 +1,115 @@
+<div class="card">
+  <div id="studentDetailsCard" *ngIf="studentDetails">
+    <div class="card-header">
+      <h6>
+        {{ studentDetails.firstName + " " + studentDetails.lastName }}
+      </h6>
+    </div>
+    <div class="card-img-top mt-1">
+      <div class="text-center">
+        <img
+          [src]="studentDetails.imageURL"
+          class="rounded"
+          alt="Student Image"
+        />
+        <ng-container>
+          <input
+            type="file"
+            (change)="onImageChange($event)"
+            class="form-control mt-2"
+          />
+        </ng-container>
+      </div>
+    </div>
+    <hr />
+    <p>
+      <strong>First Name: </strong>
+      <ng-container *ngIf="isEdit; else displayFirstName">
+        <input [(ngModel)]="studentDetails.firstName" class="form-control" />
+      </ng-container>
+      <ng-template #displayFirstName>
+        {{ studentDetails.firstName }}
+      </ng-template>
+    </p>
+    <p>
+      <strong>Last Name: </strong>
+      <ng-container *ngIf="isEdit; else displayLastName">
+        <input [(ngModel)]="studentDetails.lastName" class="form-control" />
+      </ng-container>
+      <ng-template #displayLastName>
+        {{ studentDetails.lastName }}
+      </ng-template>
+    </p>
+    <p>
+      <strong>Mobile: </strong>
+      <ng-container *ngIf="isEdit; else displayPhoneNumber">
+        <input [(ngModel)]="studentDetails.phoneNumber" class="form-control" />
+      </ng-container>
+      <ng-template #displayPhoneNumber>
+        {{ studentDetails.phoneNumber }}
+      </ng-template>
+    </p>
+    <p>
+      <strong>Email: </strong>
+      <ng-container *ngIf="isEdit; else displayEmail">
+        <input [(ngModel)]="studentDetails.email" class="form-control" />
+      </ng-container>
+      <ng-template #displayEmail>
+        {{ studentDetails.email }}
+      </ng-template>
+    </p>
+    <p>
+      <strong>NIC: </strong>
+      <ng-container *ngIf="isEdit; else displayNic">
+        <input [(ngModel)]="studentDetails.nic" class="form-control" />
+      </ng-container>
+      <ng-template #displayNic>
+        {{ studentDetails.nic }}
+      </ng-template>
+    </p>
+    <p>
+      <strong>DOB: </strong>
+      <ng-container *ngIf="isEdit; else displayDateOfBirth">
+        <input
+          [(ngModel)]="studentDetails.dateOfBirth"
+          type="date"
+          class="form-control"
+        />
+      </ng-container>
+      <ng-template #displayDateOfBirth>
+        {{ studentDetails.dateOfBirth }}
+      </ng-template>
+    </p>
+    <p>
+      <strong>Address: </strong>
+      <ng-container *ngIf="isEdit; else displayAddress">
+        <textarea
+          [(ngModel)]="studentDetails.address"
+          class="form-control"
+        ></textarea>
+      </ng-container>
+      <ng-template #displayAddress>
+        {{ studentDetails.address }}
+      </ng-template>
+    </p>
+    <hr />
+    <div class="row">
+      <div class="col">
+        <button
+          class="btn btn-danger btn-sm mr-2"
+          (click)="deleteStudent(studentDetails.id)"
+        >
+          <i class="fa fa-trash-o mr-1"></i>Delete
+        </button>
+        <button
+          class="btn btn-sm"
+          [ngClass]="isEdit ? 'btn-primary' : 'btn-secondary'"
+          (click)="isEdit ? updateStudent(studentDetails.id) : editStudent()"
+        >
+          <i class="fa" [ngClass]="isEdit ? 'fa-save' : 'fa-edit'"></i>
+          {{ isEdit ? "Update" : "Edit" }}
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

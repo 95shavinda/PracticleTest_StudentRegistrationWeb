@@ -1,0 +1,26 @@
+.add-button {
+  margin-top: 10px;
+  margin-left: 10px;
+}
+.clickable {
+  cursor: pointer;
+}
+.studentListGrid {
+  width: 100%;
+}
+.changestyle {
+  width: 75%;
+}
+.image-container {
+  width: 60px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.profile-pic {
+  width: 80%;
+  height: 80%;
+  object-fit: cover;
+}
